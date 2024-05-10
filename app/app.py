@@ -38,9 +38,9 @@ async def send_message(request: ChatRequest):
 # Serve HTML directly from FastAPI
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
-    with open("app/static/index.html", "r") as f:
+    with open("static/index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content)
 
 # Mount the static directory to serve static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
