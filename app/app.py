@@ -21,19 +21,7 @@ from transformers import AutoTokenizer, LlamaForCausalLM
 
 login(token="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")
 @app.post("/send_message")
-async def send_message(request: ChatRequest):
-    prompt = request.message
-    text_generator = transformers.pipeline(
-        "text-generation",
-        model=model,
-        tokenizer=tokenizer,
-        torch_dtype=torch.float16,
-        device_map="auto"
-    )
 
-    formatted_prompt = f"Question: {prompt} Answer:"
-    sequences = text_generator(formatted_prompt, do_sample=True, top_k=5, top_p=0.9, num_return_sequences=1, repetition_penalty=1.5, max_new_tokens=128)
-    return {"reply": sequences[0]['generated_text']}
 
 # Serve HTML directly from FastAPI
 @app.get("/", response_class=HTMLResponse)
